@@ -1,0 +1,37 @@
+extends layout
+
+block content
+    .home
+        .home-hero
+            h1.home-hero-title= title
+            img.home-hero-pic(alt="Application quickstart", src="https://cloud.githubusercontent.com/assets/581999/20681348/e629cd74-b5ab-11e6-94fa-b3b30cdbacc3.png")
+        p A hot-reloading application quickstart based on:
+        ul
+            li Express
+            li React
+            li BrowserSync
+            li Webpack@@2
+            li Nodemon
+        p
+            | When a server-side template file is changed (i.e.
+            code views/home.pug
+            | ),
+            code browser-sync
+            | will trigger a full page reload.
+            br
+            | When a server-side code file is changed,
+            code nodemon
+            | restarts the application automatically and
+            code browser-sync
+            | triggers a full page reload.
+            br
+            code Webpack
+            | ,
+            code webpack-dev-middleware
+            | and
+            code webpack-hot-middleware
+            | are running inside
+            code browser-sync
+            | .
+            br
+            | When client-side code changes, a hot-module replacement is triggered if possible. If not, a full page reload will be performed.

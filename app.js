@@ -15,9 +15,8 @@ const app = express();
 
 app.locals.static = config.static;
 
-app.set('view engine', 'vash');
+app.set('view engine', 'pug');
 app.set('views', `${__dirname}/views`);
-vash.config.modelName  = 'it';
 
 app.use(logger('dev'));
 
