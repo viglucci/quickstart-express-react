@@ -1,31 +1,31 @@
 doctype html
 html
-  head
-    meta(charset="utf-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
-    link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
-    link(href="//cdn.muicss.com/mui-0.9.9-rc2/css/mui.min.css", rel="stylesheet")
-    link(rel="stylesheet", href=static.root + "/css/index.css" + static.suffix)
-    title= title
-  body
-    header.header.mui-appbar.mui--z1
-      a.header-link(href="/", alt="Home")
-        i.material-icons= "developer_board"
-        span.header-title= "Application Quickstart"
-      .header-menu
-        a.header-link(href="/app", title="Client-side React app")
-          i.material-icons= "event_note"
-        a.header-link(href="https://github.com/icflorescu/quickstart-express-react", title="GitHub Repo", target="_blank")
-          i.material-icons= "code"
-    section.content
-      .mui--appbar-height
-      block content
-    footer.footer
-      i.material-icons= "code"
-      span.footer-text
-        | View code in the GitHub
-        a(href="https://github.com/icflorescu/quickstart-express-react", target="_blank")= repository
-    script(src="//cdn.muicss.com/mui-0.9.9-rc2/js/mui.min.js")
-    script(src=static.root + "/js/main.js" + static.suffix)
-    block additional-scripts
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
+        link(href="//cdn.muicss.com/mui-0.9.9-rc2/css/mui.min.css", rel="stylesheet")
+        link(rel="stylesheet", href=static.root + "/css/index.css" + static.suffix)
+        title= title
+    body
+        header.header.mui-appbar.mui--z1
+            a.header-link(href="/", alt="Home")
+                i.material-icons= "developer_board"
+                span.header-title= "Application Quickstart"
+            .header-menu
+                a.header-link(href="/app", title="Client-side React app")
+                    i.material-icons= "event_note"
+                a.header-link(href="https://github.com/icflorescu/quickstart-express-react", title="GitHub Repo", target="_blank")
+                    i.material-icons= "code"
+        section.content
+            .mui--appbar-height
+            block content
+        footer.footer
+            i.material-icons= "code"
+            span.footer-text
+                | View code in the GitHub
+                a(href="https://github.com/icflorescu/quickstart-express-react", target="_blank")= repository
+        script(src="//cdn.muicss.com/mui-0.9.9-rc2/js/mui.min.js")
+        script(src=static.root + "/js/main.js" + static.suffix)
+        block additional-scripts
