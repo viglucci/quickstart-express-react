@@ -18,7 +18,7 @@ There's been lots of talk recently about server-side rendered React components o
 
 Also, we still need our **server-generated content to be available and parsable by search engines**. Admittedly, Google [became smarter](http://andrewhfarmer.com/react-seo/) in regards to interpreting and client-side generated content, but it's not safe to completely rely on it, and other search engines are not so powerful yet.
 
-That's why we still need to generate content on the server using tried & tested, fast, specialized template engines such as [Pug](https://pugjs.org/api/getting-started.html), [EJS](http://ejs.co/), [Vash](https://github.com/kirbysayshi/vash), [Dust](http://www.dustjs.com/), etc.  
+That's why we still need to generate content on the server using tried & tested, fast, specialized template engines such as [Pug](https://pugjs.org/api/getting-started.html), [EJS](http://ejs.co/), [Vash](https://github.com/kirbysayshi/vash), [Dust](http://www.dustjs.com/), etc.
 
 Also, the webpack-based hot-reloading solution provided by most tutorials and available quickstarts completely ignore the API your application is connecting to. But in real-life not all projects are developed by multiple teams; sometimes there's a single full-stack developer or team writing the entire codebase for an app or website, including the webpage templates, client-side JS code and server-side APIs.
 
@@ -49,6 +49,7 @@ Hence the need of a functional, truly **general-purpose hot-reloading approach**
 - In development mode, [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware) and [webpack-hot-middleware](https://github.com/glenjamin/webpack-hot-middleware) are **running as browsersync middlewares**. This way we end up **keeping the main Express application uncluttered by development-related code**.
 - Webpack [babel-loader](https://github.com/babel/babel-loader) is using [stage-2](https://babeljs.io/docs/plugins/preset-stage-2/) and [react](https://babeljs.io/docs/plugins/preset-react/) presets and **[react-hot-loader](https://github.com/gaearon/react-hot-loader)@3** – configured in `webpack.config.js`.
 - On the server, the `global.Promise` is replaced with [bluebird](http://bluebirdjs.com/docs/getting-started.html) for [performance reasons](http://bluebirdjs.com/docs/benchmarks.html) – this is configured in `index.js`. Simply remove it if you don't like the idea.
+- Initialize the demo db with `npm run tool initdb`.
 
 ## Contributing
 
