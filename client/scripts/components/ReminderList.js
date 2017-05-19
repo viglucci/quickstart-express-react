@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import { loadReminders } from '../actions/reminders';
-import ReminderListItem from './ReminderListItem';
+import { loadReminders } from "../actions/reminders";
+import ReminderListItem from "./ReminderListItem";
 
 class ReminderList extends Component {
   componentWillMount() {
