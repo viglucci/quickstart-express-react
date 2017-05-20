@@ -1,0 +1,21 @@
+.ReminderList {
+
+}
+
+.ReminderList-item {
+	position: relative;
+}
+
+.ReminderListItem-title,
+.ReminderListItem-when {
+	padding: 15px;
+}
+
+.ReminderListItem-deleteButton {
+	cursor: pointer;
+	display: block;
+	height: 50px;
+	line-height: 50px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}

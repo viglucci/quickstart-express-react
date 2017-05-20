@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import moment from "moment";
+import classnames from "classnames";
 
 import { deleteReminder } from "../actions/reminders";
 
@@ -11,19 +12,40 @@ class ReminderListItem extends Component {
 
 	}
 
+	renderDeleteButton () {
+		let classes = classnames(
+			"ReminderListItem-deleteButton",
+			"mui--pull-right",
+			"mui--divider-left",
+			"mui-btn", "mui-btn--flat", "mui-btn--danger"
+		);
+		let onClick = () => {
+			this.props.deleteReminder(this.props.reminder);
+		};
+		return (
+			<div className={classes} onClick={onClick}>
+				Delete
+			</div>
+		)
+	}
+
 	render() {
-		let containerClassName = "reminder-list-item mui--clearfix";
 		let index = this.props.index;
 		let reminder = this.props.reminder;
-		if (index) containerClassName += " mui--divider-top";
+		let classes = classnames(
+			"ReminderList-item",
+			"mui--clearfix",
+			{
+				"mui--divider-top": index
+			}
+		);
 		return (
-			<div
-				className={containerClassName}
-				onClick={() => {
-					this.props.deleteReminder(reminder);
-				}}>
-				<div className="mui--pull-right">{moment(reminder.when).fromNow()}</div>
-				<div>{reminder.title}</div>
+			<div className={classes}>
+				<div className="mui--pull-right">
+					{ this.renderDeleteButton() }
+					<div className="ReminderListItem-when mui--pull-right">{moment(reminder.when).fromNow()}</div>
+				</div>
+				<div className="ReminderListItem-title">{reminder.title}</div>
 			</div>
 		);
 	}
