@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import moment from "moment";
 
+import { deleteReminder } from "../actions/reminders";
+
 class ReminderListItem extends Component {
 
 	componentWillMount() {
@@ -18,7 +20,7 @@ class ReminderListItem extends Component {
 			<div
 				className={containerClassName}
 				onClick={() => {
-
+					this.props.deleteReminder(reminder);
 				}}>
 				<div className="mui--pull-right">{moment(reminder.when).fromNow()}</div>
 				<div>{reminder.title}</div>
@@ -27,8 +29,12 @@ class ReminderListItem extends Component {
 	}
 }
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators({  }, dispatch);
+function mapStateToProps() {
+	return { };
 }
 
-export default connect(mapDispatchToProps)(ReminderListItem);
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ deleteReminder }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReminderListItem);

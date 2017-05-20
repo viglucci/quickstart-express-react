@@ -6,32 +6,33 @@ import { loadReminders } from "../actions/reminders";
 import ReminderListItem from "./ReminderListItem";
 
 class ReminderList extends Component {
-	componentWillMount() {
+
+	componentWillMount () {
 		this.props.loadReminders();
 	}
 
-	renderItems() {
+	renderItems () {
 		return this.props.reminders.map(
-			(item, index) => <ReminderListItem key={item.id} reminder={item} index={index} />
+			(item, index) => <ReminderListItem key={ item.id } reminder={ item } index={ index } />
 		);
 	}
 
-	render() {
+	render () {
 		return (
 			<div className="mui-container">
 				<div className="mui--z1">
-					{this.renderItems()}
+					{ this.renderItems() }
 				</div>
 			</div>
 		);
 	}
 }
 
-function mapStateToProps({ reminders }) {
+function mapStateToProps ({ reminders }) {
 	return { reminders };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
 	return bindActionCreators({ loadReminders }, dispatch);
 }
 
