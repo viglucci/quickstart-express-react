@@ -26,7 +26,7 @@ bs.init({
 
 nodemon({
   script: 'index.js',
-  ignore: ['client/', 'public/']
+  ignore: ['client/', 'public/', 'db.json']
 }).on('restart', files => {
   if (files) {
     const filenames = files.map(f => relativePath('', f)).join(', ');
