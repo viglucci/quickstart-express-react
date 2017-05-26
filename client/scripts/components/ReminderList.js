@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 
 import { loadReminders } from "../actions/reminders";
 import ReminderListItem from "./ReminderListItem";
+import NewReminderForm from "./NewReminderForm";
 
 class ReminderList extends Component {
 
@@ -19,8 +20,11 @@ class ReminderList extends Component {
 
 	render () {
 		return (
-			<div className="mui-container">
-				<div className="mui--z1">
+			<div className="ReminderList mui-container">
+				<div className="ReminderList-newForm">
+					<NewReminderForm></NewReminderForm>
+				</div>
+				<div className="ReminderList-items mui--z1">
 					{ this.renderItems() }
 				</div>
 			</div>
