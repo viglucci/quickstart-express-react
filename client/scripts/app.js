@@ -10,6 +10,11 @@ import thunk from "redux-thunk"
 import reducers from "./reducers";
 import routes from "./routes";
 
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 const appRootEl = document.getElementsByClassName("app")[0];
 
 if (appRootEl) {
@@ -20,7 +25,11 @@ if (appRootEl) {
 	} else {
 		const AppContainer = require("react-hot-loader").AppContainer;
 		const render = () => {
-			ReactDOM.render(<Provider store={store}><AppContainer>{router}</AppContainer></Provider>, appRootEl);
+			ReactDOM.render(
+				<Provider store={store}>
+					<AppContainer>{router}</AppContainer>
+				</Provider>
+			, appRootEl);
 		};
 		if (module.hot) {
 			module.hot.accept("./reducers", () => { store.replaceReducer(reducers); });
