@@ -22,12 +22,6 @@ class ReminderListItem extends Component {
 	}
 
 	renderDeleteButton () {
-		let classes = classnames(
-			"ReminderListItem-deleteButton",
-			"mui--pull-right",
-			"mui--divider-left",
-			"mui-btn", "mui-btn--flat", "mui-btn--danger"
-		);
 		let onClick = () => {
 			this.setState({ updating: true });
 			setTimeout(() => {
@@ -42,6 +36,12 @@ class ReminderListItem extends Component {
 				</div>
 			);
 		} else {
+			let classes = classnames(
+				"ReminderListItem-deleteButton",
+				"mui--pull-right",
+				"mui--divider-left",
+				"mui-btn", "mui-btn--flat", "mui-btn--danger"
+			);
 			return (
 				<div className={classes} onClick={onClick}>
 					Delete
