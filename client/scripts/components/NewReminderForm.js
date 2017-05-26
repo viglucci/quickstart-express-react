@@ -5,6 +5,8 @@ import { bindActionCreators } from "redux";
 import { loadReminders } from "../actions/reminders";
 import ReminderListItem from "./ReminderListItem";
 
+import FlatButton from 'material-ui/FlatButton';
+
 class NewReminderForm extends Component {
 
 	componentWillMount () {
@@ -19,7 +21,7 @@ class NewReminderForm extends Component {
 						<input type="text"/>
 						<label>Title</label>
 					</div>
-					<button type="submit" className="mui-btn mui-btn--flat mui-btn--primary">Submit</button>
+					<FlatButton label="Submit" primary={true} />
 				</form>
 			</div>
 		);

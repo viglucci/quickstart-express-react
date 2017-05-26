@@ -6,27 +6,48 @@ import classnames from "classnames";
 
 import { deleteReminder } from "../actions/reminders";
 
+import CircularProgress from 'material-ui/CircularProgress';
+
 class ReminderListItem extends Component {
+
+	constructor (props) {
+		super(props);
+		this.state = {
+			updating: false
+		};
+	}
 
 	componentWillMount() {
 
 	}
 
 	renderDeleteButton () {
-		let classes = classnames(
-			"ReminderListItem-deleteButton",
-			"mui--pull-right",
-			"mui--divider-left",
-			"mui-btn", "mui-btn--flat", "mui-btn--danger"
-		);
 		let onClick = () => {
-			this.props.deleteReminder(this.props.reminder);
+			this.setState({ updating: true });
+			setTimeout(() => {
+				this.props.deleteReminder(this.props.reminder);
+			}, 1000);
 		};
-		return (
-			<div className={classes} onClick={onClick}>
-				Delete
-			</div>
-		)
+		if (this.state.updating) {
+			let style = { padding: 5, paddingRight: 34.5, paddingLeft: 34.5 };
+			return (
+				<div className="mui--pull-right mui--divider-left" style={ style }>
+					<CircularProgress />
+				</div>
+			);
+		} else {
+			let classes = classnames(
+				"ReminderListItem-deleteButton",
+				"mui--pull-right",
+				"mui--divider-left",
+				"mui-btn", "mui-btn--flat", "mui-btn--danger"
+			);
+			return (
+				<div className={classes} onClick={onClick}>
+					Delete
+				</div>
+			);
+		}
 	}
 
 	render() {
