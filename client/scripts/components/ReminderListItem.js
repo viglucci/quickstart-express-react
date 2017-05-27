@@ -24,9 +24,7 @@ class ReminderListItem extends Component {
 	renderDeleteButton () {
 		let onClick = () => {
 			this.setState({ updating: true });
-			setTimeout(() => {
-				this.props.deleteReminder(this.props.reminder);
-			}, 1000);
+			this.props.deleteReminder(this.props.reminder);
 		};
 		if (this.state.updating) {
 			let style = { padding: 5, paddingRight: 34.5, paddingLeft: 34.5 };
