@@ -1,22 +1,17 @@
 import { Router } from "express";
 import db from "../utils/db";
+import artificialDelay  from '../middleware/artificialDelay';
 
 const reminders = db.get("reminders");
 
 const router = Router();
 
-const randomDelay = () => {
-	const max = 2000;
-	const min = 250;
-	return Math.random() * (max - min) + min
-};
+router.use(artificialDelay);
 
 router.get("/api/reminders", (req, res, next) => {
 	try {
-		setTimeout(() => {
-			let data = reminders.map(item => db._.pick(item, "id", "title", "when")).value();
-			res.send(data);
-		}, randomDelay());
+		let data = reminders.map(item => db._.pick(item, "id", "title", "when")).value();
+		res.send(data);
 	} catch (err) {
 		next(err);
 	}
@@ -41,9 +36,7 @@ router.put("/api/reminders", (req, res, next) => {
 router.delete("/api/reminders/:id", (req, res, next) => {
 	try {
 		reminders.removeById(req.params.id).value();
-		setTimeout(() => {
-			res.sendStatus(204);
-		}, randomDelay());
+		res.sendStatus(204);
 	} catch (err) {
 		next(err);
 	}
