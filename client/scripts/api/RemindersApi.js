@@ -6,6 +6,10 @@ class RemindersApi {
 		return axios.get("/api/reminders")
 	}
 
+	static addReminder (reminder) {
+		return axios.post("/api/reminders/", reminder);
+	}
+
 	static deleteReminder (reminder) {
 		return axios.delete("/api/reminders/" + reminder.id);
 	}
