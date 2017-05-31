@@ -84,8 +84,8 @@ class NewReminderForm extends Component {
 	}
 }
 
-function mapStateToProps ({ reminders }) {
-	return { reminders };
+function mapStateToProps () {
+	return { };
 }
 
 function mapDispatchToProps (dispatch) {
