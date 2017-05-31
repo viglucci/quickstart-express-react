@@ -3,7 +3,11 @@ import axios from "axios";
 class RemindersApi {
 
 	static getReminders () {
-		return axios.get("/api/reminders");
+		return axios.get("/api/reminders")
+	}
+
+	static addReminder (reminder) {
+		return axios.post("/api/reminders/", reminder);
 	}
 
 	static deleteReminder (reminder) {
