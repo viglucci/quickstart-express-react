@@ -7,7 +7,7 @@ class RemindersApi {
 	}
 
 	static create (reminder) {
-		return axios.post("/api/reminders/", reminder);
+		return axios.post("/api/reminders/", reminder).then(res => res.data);
 	}
 
 	static delete (reminder) {

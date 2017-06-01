@@ -1,7 +1,7 @@
 import {
 	LOAD_REMINDERS,
 	DELETE_REMINDER_SUCCESS,
-	ADD_REMINDER_SUCCESS
+	CREATE_REMINDER_SUCCESS
 } from '../actions/reminders';
 
 export default (state = [], action) => {
@@ -11,8 +11,8 @@ export default (state = [], action) => {
 			return action.payload.data;
 		case DELETE_REMINDER_SUCCESS:
 			return handleDeleteReminderSuccess(state, action);
-		case ADD_REMINDER_SUCCESS:
-			return handleAddReminderSuccess(state, action);
+		case CREATE_REMINDER_SUCCESS:
+			return handleCreateReminderSuccess(state, action);
 		default:
 			return state;
 	}
@@ -27,7 +27,7 @@ const handleDeleteReminderSuccess = (state, action) => {
 	return newState;
 };
 
-const handleAddReminderSuccess = (state, action) => {
+const handleCreateReminderSuccess = (state, action) => {
 	const newState = Object.assign([], state);
 	newState.push(action.reminder);
 	return newState;
