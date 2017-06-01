@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { loadReminders } from "../actions/reminders";
+import { postReminder } from "../actions/reminders";
 import ReminderListItem from "./ReminderListItem";
 
 import ContentAddIcon from "material-ui/svg-icons/content/add";
@@ -17,7 +17,7 @@ class NewReminderForm extends Component {
 
 	state = {
 		open: false,
-		nameInputValue: null,
+		nameInputValue: "",
 		dateInputValue: null,
 		timeInputValue: null
 	};
@@ -30,15 +30,23 @@ class NewReminderForm extends Component {
 		this.setState({ open: false });
 	};
 
-	handleNameInput = (event, value) => {
+	handleSubmit = () => {
+		this.props.postReminder({
+			name: this.nameInputValue,
+			date: this.dateInputValue,
+			time: this.timeInputValue
+		});
+	};
+
+	handleNameInputChange = (event, value) => {
 		this.setState({ nameInputValue: value });
 	};
 
-	handleDateInput = (event, value) => {
+	handleDateInputChange = (event, value) => {
 		this.setState({ dateInputValue: value });
 	};
 
-	handleTimeInput = (event, value) => {
+	handleTimeInputChange = (event, value) => {
 		this.setState({ timeInputValue: value });
 	};
 
@@ -46,7 +54,7 @@ class NewReminderForm extends Component {
 
 		let floatingButtonStyle = { position: "absolute", right: 40, bottom: 40 };
 		const cancelButton = <FlatButton label="Cancel" primary={true} onTouchTap={this.handleClose} />
-		const submitButton = <FlatButton label="Submit" primary={true} keyboardFocused={true} onTouchTap={this.handleClose} />
+		const submitButton = <FlatButton label="Submit" primary={true} keyboardFocused={true} onTouchTap={this.handleSubmit} />
 		const actions = [cancelButton, submitButton];
 
 		return (
@@ -67,15 +75,15 @@ class NewReminderForm extends Component {
 					className="NewReminderForm-dialog">
 					<div className="mui-row">
 						<div className="mui-col-md-12">
-							<TextField hintText="Name" value={this.state.nameInputValue} onChange={this.handleNameInput} />
+							<TextField hintText="Name" value={this.state.nameInputValue} onChange={this.handleNameInputChange} />
 						</div>
 					</div>
 					<div className="mui-row">
 						<div className="mui-col-md-6">
-							<DatePicker hintText="Date" value={this.state.dateInputValue} onChange={this.handleDateInput} />
+							<DatePicker hintText="Date" value={this.state.dateInputValue} onChange={this.handleDateInputChange} />
 						</div>
 						<div className="mui-col-md-6">
-							<TimePicker hintText="Time" value={this.state.timeInputValue} onChange={this.handleTimeInput} />
+							<TimePicker hintText="Time" value={this.state.timeInputValue} onChange={this.handleTimeInputChange} />
 						</div>
 					</div>
 				</Dialog>
@@ -89,7 +97,7 @@ function mapStateToProps () {
 }
 
 function mapDispatchToProps (dispatch) {
-	return bindActionCreators({ loadReminders }, dispatch);
+	return bindActionCreators({ postReminder }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewReminderForm);

@@ -9,13 +9,33 @@ export const ADD_REMINDER_SUCCESS    = "ADD_REMINDER_SUCCESS";
 export function loadReminders () {
 	return {
 		type: LOAD_REMINDERS,
-		payload: ReminderApi.getReminders()
+		payload: ReminderApi.get()
+	};
+}
+
+export function postReminder (data) {
+	return (dispatch) => {
+		ReminderApi.create(data)
+		.then((newReminder) => {
+			console.log(`Created reminder ${newReminder.id}`);
+			dispatch(postReminderSuccess(newReminder));
+		})
+		.catch(error => {
+			throw(error);
+		});
+	};
+}
+
+export function postReminderSuccess (reminder) {
+	return {
+		type: POST_REMINDER_SUCCESS,
+		reminder
 	};
 }
 
 export function deleteReminder (reminder) {
 	return (dispatch) => {
-		ReminderApi.deleteReminder(reminder)
+		ReminderApi.delete(reminder)
 		.then(() => {
 			console.log(`Deleted reminder ${reminder.id}`);
 			dispatch(deleteReminderSuccess(reminder));
@@ -30,19 +50,6 @@ export function deleteReminderSuccess (reminder) {
 	return {
 		type: DELETE_REMINDER_SUCCESS,
 		reminder
-	};
-}
-
-export function addReminder (reminder) {
-	return (dispatch) => {
-		ReminderApi.addReminder(reminder)
-		.then((newReminder) => {
-			console.log(`Added reminder ${reminder.id}`);
-			dispatch(addReminderSuccess(newReminder));
-		})
-		.catch(error => {
-			throw(error);
-		});
 	};
 }
 
