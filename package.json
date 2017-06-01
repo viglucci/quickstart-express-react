@@ -37,6 +37,7 @@
     "pug": "^2.0.0-rc.1",
     "react-tap-event-plugin": "^2.0.1",
     "redux-thunk": "^2.2.0",
+    "tcomb-validation": "^3.3.0",
     "underscore-db": "^0.12.2"
   },
   "devDependencies": {
