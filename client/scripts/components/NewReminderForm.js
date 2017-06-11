@@ -54,7 +54,7 @@ class NewReminderForm extends Component {
 
 		let floatingButtonStyle = { position: "absolute", right: 40, bottom: 40 };
 		const cancelButton = <FlatButton label="Cancel" primary={true} onTouchTap={this.handleClose} />
-		const submitButton = <FlatButton label="Submit" primary={true} keyboardFocused={true} onTouchTap={this.handleSubmit} />
+		const submitButton = <FlatButton label="Submit" primary={true} onTouchTap={this.handleSubmit} />
 		const actions = [cancelButton, submitButton];
 
 		return (
