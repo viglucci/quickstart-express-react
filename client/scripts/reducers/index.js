@@ -1,5 +1,9 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
-import reminders from './reminders';
+import reminders from "./reminders";
+import newReminderForm from "./newReminderForm";
 
-export default combineReducers({ reminders });
+export default combineReducers({
+	reminders: reminders,
+	newReminderForm: newReminderForm
+});
