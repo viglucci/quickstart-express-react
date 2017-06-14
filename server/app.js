@@ -3,7 +3,6 @@ import logger       from "morgan";
 import compression  from "compression";
 import cookieParser from "cookie-parser";
 import bodyParser   from "body-parser";
-import vash         from "vash";
 import mime         from "mime";
 import path         from "path";
 
