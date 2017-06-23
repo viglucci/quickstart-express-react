@@ -10,6 +10,7 @@ import config from "./app.config";
 import pages  from "./routes/pages";
 import api    from "./routes/api";
 import error  from "./routes/error";
+import db     from "./database";
 
 const app = express();
 

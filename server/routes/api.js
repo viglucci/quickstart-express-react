@@ -1,20 +1,20 @@
-import { Router } from "express";
-import db from "../utils/db";
-import artificialDelay  from '../middleware/artificialDelay';
-
+const Router    = require("express").Router;
+const db        = require("../utils/db");
+const delay     = require("../middleware/artificialDelay");
+const Reminder  = require("../database/models/Reminder");
 const reminders = db.get("reminders");
 
 const router = Router();
 
-router.use(artificialDelay);
+//router.use(delay);
 
 router.get("/api/reminders", (req, res, next) => {
-	try {
-		let data = reminders.map(item => db._.pick(item, "id", "title", "when")).value();
-		res.send(data);
-	} catch (err) {
-		next(err);
-	}
+	Reminder
+	.fetchAll()
+	.then(function (reminders) {
+		res.json(reminders);
+	})
+	.catch(next);
 });
 
 router.post("/api/reminders", (req, res, next) => {
@@ -34,12 +34,16 @@ router.put("/api/reminders/:id", (req, res, next) => {
 });
 
 router.delete("/api/reminders/:id", (req, res, next) => {
-	try {
-		reminders.removeById(req.params.id).value();
+	Reminder
+	.where("id", req.params.id)
+	.fetch()
+	.then(function (reminder) {
+		return reminder.destroy();
+	})
+	.then(function () {
 		res.sendStatus(204);
-	} catch (err) {
-		next(err);
-	}
+	})
+	.catch(next);
 });
 
 export default router;

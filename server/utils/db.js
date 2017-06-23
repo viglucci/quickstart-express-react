@@ -7,4 +7,4 @@ const db = low(resolvePath(__dirname, '../db.json'), { storage: fileAsyncStorage
 db._.mixin(underscoreDb);
 db.defaults({ reminders: [] }).value();
 
-export default db;
+module.exports = db;
