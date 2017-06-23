@@ -17,17 +17,17 @@ router.get("/api/reminders", (req, res, next) => {
 	}
 });
 
-router.post("/api/reminders/:id", (req, res, next) => {
+router.post("/api/reminders", (req, res, next) => {
 	try {
-		res.send(reminders.updateById(req.params.id, req.body).value());
+		res.send(reminders.insert(req.body).value());
 	} catch (err) {
 		next(err);
 	}
 });
 
-router.put("/api/reminders", (req, res, next) => {
+router.put("/api/reminders/:id", (req, res, next) => {
 	try {
-		res.send(reminders.insert(req.body).value());
+		res.send(reminders.updateById(req.params.id, req.body).value());
 	} catch (err) {
 		next(err);
 	}

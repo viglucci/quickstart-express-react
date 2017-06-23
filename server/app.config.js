@@ -1,4 +1,4 @@
-const version    = require('./package').version;
+const version    = require('../package').version;
 const production = process.env.NODE_ENV == 'production';
 
 module.exports = {

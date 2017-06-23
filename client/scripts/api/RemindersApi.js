@@ -2,18 +2,17 @@ import axios from "axios";
 
 class RemindersApi {
 
-	static getReminders () {
+	static get () {
 		return axios.get("/api/reminders")
 	}
 
-	static addReminder (reminder) {
-		return axios.post("/api/reminders/", reminder);
+	static create (reminder) {
+		return axios.post("/api/reminders/", reminder).then(res => res.data);
 	}
 
-	static deleteReminder (reminder) {
+	static delete (reminder) {
 		return axios.delete("/api/reminders/" + reminder.id);
 	}
-
 }
 
 export default RemindersApi;

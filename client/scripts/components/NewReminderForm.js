@@ -2,7 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { loadReminders } from "../actions/reminders";
+import { postReminder } from "../actions/reminders";
+import {
+	openModal,
+	closeModal,
+	setNameInputValue,
+	setDateInputValue,
+	setTimeInputValue,
+} from "../actions/newReminderForm";
 import ReminderListItem from "./ReminderListItem";
 
 import ContentAddIcon from "material-ui/svg-icons/content/add";
@@ -15,38 +22,39 @@ import TimePicker from "material-ui/TimePicker";
 
 class NewReminderForm extends Component {
 
-	state = {
-		open: false,
-		nameInputValue: null,
-		dateInputValue: null,
-		timeInputValue: null
-	};
-
 	handleOpen = () => {
-		this.setState({ open: true });
+		this.props.openModal();
 	};
 
 	handleClose = () => {
-		this.setState({ open: false });
+		this.props.closeModal();
 	};
 
-	handleNameInput = (event, value) => {
-		this.setState({ nameInputValue: value });
+	handleSubmit = () => {
+		this.props.postReminder({
+			name: this.nameInputValue,
+			date: this.dateInputValue,
+			time: this.timeInputValue
+		});
 	};
 
-	handleDateInput = (event, value) => {
-		this.setState({ dateInputValue: value });
+	handleNameInputChange = (event, value) => {
+		this.props.setNameInputValue(value);
 	};
 
-	handleTimeInput = (event, value) => {
-		this.setState({ timeInputValue: value });
+	handleDateInputChange = (event, value) => {
+		this.props.setDateInputValue(value);
+	};
+
+	handleTimeInputChange = (event, value) => {
+		this.props.setTimeInputValue(value);
 	};
 
 	render () {
 
 		let floatingButtonStyle = { position: "absolute", right: 40, bottom: 40 };
 		const cancelButton = <FlatButton label="Cancel" primary={true} onTouchTap={this.handleClose} />
-		const submitButton = <FlatButton label="Submit" primary={true} keyboardFocused={true} onTouchTap={this.handleClose} />
+		const submitButton = <FlatButton label="Submit" primary={true} onTouchTap={this.handleSubmit} />
 		const actions = [cancelButton, submitButton];
 
 		return (
@@ -54,7 +62,7 @@ class NewReminderForm extends Component {
 				<FloatingActionButton
 					mini={false}
 					style={floatingButtonStyle}
-					onTouchTap={this.handleOpen}
+					onTouchTap={this.props.openModal}
 					className="NewReminderForm-openButton">
 					<ContentAddIcon className="NewReminderForm-openButton-icon" />
 				</FloatingActionButton>
@@ -62,20 +70,20 @@ class NewReminderForm extends Component {
 					title="New Reminder"
 					actions={actions}
 					modal={true}
-					open={this.state.open}
+					open={this.props.open}
 					onRequestClose={this.handleClose}
 					className="NewReminderForm-dialog">
 					<div className="mui-row">
 						<div className="mui-col-md-12">
-							<TextField hintText="Name" value={this.state.nameInputValue} onChange={this.handleNameInput} />
+							<TextField hintText="Name" value={this.props.nameInputValue} onChange={this.handleNameInputChange} />
 						</div>
 					</div>
 					<div className="mui-row">
 						<div className="mui-col-md-6">
-							<DatePicker hintText="Date" value={this.state.dateInputValue} onChange={this.handleDateInput} />
+							<DatePicker hintText="Date" value={this.props.dateInputValue} onChange={this.handleDateInputChange} />
 						</div>
 						<div className="mui-col-md-6">
-							<TimePicker hintText="Time" value={this.state.timeInputValue} onChange={this.handleTimeInput} />
+							<TimePicker hintText="Time" value={this.props.timeInputValue} onChange={this.handleTimeInputChange} />
 						</div>
 					</div>
 				</Dialog>
@@ -84,12 +92,19 @@ class NewReminderForm extends Component {
 	}
 }
 
-function mapStateToProps ({ reminders }) {
-	return { reminders };
+function mapStateToProps ({ newReminderForm }) {
+	return { ...newReminderForm };
 }
 
 function mapDispatchToProps (dispatch) {
-	return bindActionCreators({ loadReminders }, dispatch);
+	return bindActionCreators({
+		openModal: openModal,
+		closeModal: closeModal,
+		postReminder: postReminder,
+		setNameInputValue: setNameInputValue,
+		setDateInputValue: setDateInputValue,
+		setTimeInputValue: setTimeInputValue
+	}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewReminderForm);

@@ -26,29 +26,37 @@ class ReminderListItem extends Component {
 			this.setState({ updating: true });
 			this.props.deleteReminder(this.props.reminder);
 		};
+		let classes = classnames(
+			"ReminderListItem-deleteButton",
+			"mui--pull-right",
+			"mui--divider-left",
+			"mui-btn", "mui-btn--flat",
+			{ "mui-btn--danger": !this.state.updating }
+		);
+		let disabled = this.state.updating;
+		return (
+			<button className={classes} onClick={onClick} disabled={disabled}>
+				Delete
+			</button>
+		);
+	}
+
+	renderUpdateSpinner () {
 		if (this.state.updating) {
-			let style = { padding: 5, paddingRight: 34.5, paddingLeft: 34.5 };
+			let style = {
+				position: "absolute",
+				right: "-35px",
+				top: "15px"
+			};
 			return (
-				<div className="mui--pull-right mui--divider-left" style={ style }>
-					<CircularProgress />
-				</div>
-			);
-		} else {
-			let classes = classnames(
-				"ReminderListItem-deleteButton",
-				"mui--pull-right",
-				"mui--divider-left",
-				"mui-btn", "mui-btn--flat", "mui-btn--danger"
-			);
-			return (
-				<div className={classes} onClick={onClick}>
-					Delete
+				<div style={ style }>
+					<CircularProgress size={20} thickness={1} />
 				</div>
 			);
 		}
 	}
 
-	render() {
+	render () {
 		let index = this.props.index;
 		let reminder = this.props.reminder;
 		let classes = classnames(
@@ -58,8 +66,10 @@ class ReminderListItem extends Component {
 				"mui--divider-top": index
 			}
 		);
+		let style = { position: "relative" }
 		return (
-			<div className={classes}>
+			<div className={classes} style={style}>
+				{ this.renderUpdateSpinner() }
 				<div className="mui--pull-right">
 					{ this.renderDeleteButton() }
 					<div className="ReminderListItem-when mui--pull-right">{moment(reminder.when).fromNow()}</div>
