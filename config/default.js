@@ -1,6 +1,5 @@
 const path = require("path");
 
-
 module.exports = {
 	database: {
 		client: "sqlite3",
