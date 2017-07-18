@@ -31,11 +31,12 @@ class NewReminderForm extends Component {
 	};
 
 	handleSubmit = () => {
-		this.props.postReminder({
-			name: this.nameInputValue,
-			date: this.dateInputValue,
-			time: this.timeInputValue
-		});
+		var data = {
+			title: this.props.nameInputValue,
+			date: this.props.dateInputValue,
+			time: this.props.timeInputValue
+		};
+		this.props.postReminder(data);
 	};
 
 	handleNameInputChange = (event, value) => {
@@ -92,8 +93,8 @@ class NewReminderForm extends Component {
 	}
 }
 
-function mapStateToProps ({ newReminderForm }) {
-	return { ...newReminderForm };
+function mapStateToProps (state) {
+	return { ...state.ui.newReminderForm };
 }
 
 function mapDispatchToProps (dispatch) {

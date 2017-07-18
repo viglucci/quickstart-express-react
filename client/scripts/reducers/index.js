@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 
 import reminders from "./reminders";
-import newReminderForm from "./newReminderForm";
+import ui from "./ui/ui";
 
 export default combineReducers({
-	reminders: reminders,
-	newReminderForm: newReminderForm
+	ui: ui,
+	reminders: reminders
 });

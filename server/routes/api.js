@@ -3,10 +3,18 @@ const db        = require("../utils/db");
 const delay     = require("../middleware/artificialDelay");
 const Reminder  = require("../database/models/Reminder");
 const reminders = db.get("reminders");
+const Joi       = require("joi");
 
 const router = Router();
 
 //router.use(delay);
+
+const validateNewReminder = (body) => {
+	const schema = Joi.object().keys({
+		title: Joi.string().min(1).max(255).required()
+	});
+	return Joi.validate({ title: body.title }, schema);
+};
 
 router.get("/api/reminders", (req, res, next) => {
 	Reminder
@@ -18,10 +26,21 @@ router.get("/api/reminders", (req, res, next) => {
 });
 
 router.post("/api/reminders", (req, res, next) => {
-	try {
-		res.send(reminders.insert(req.body).value());
-	} catch (err) {
-		next(err);
+	req.assert("title", "Title is a required field.").notEmpty();
+	const errors = req.validationErrors();
+	if (errors) {
+		res.status(400).json({
+			errors: errors
+		});
+	} else {
+		const reminder = new Reminder({
+			title: req.body.title
+		});
+		reminder.save()
+		.then(function () {
+			res.json(reminder);
+		})
+		.catch(next);
 	}
 });
 
@@ -46,4 +65,4 @@ router.delete("/api/reminders/:id", (req, res, next) => {
 	.catch(next);
 });
 
-export default router;
+module.exports = router;

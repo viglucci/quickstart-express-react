@@ -4,7 +4,7 @@ import {
 	NAME_INPUT_VALUE_CHANGE,
 	DATE_INPUT_VALUE_CHANGE,
 	TIME_INPUT_VALUE_CHANGE,
-} from "../actions/newReminderForm";
+} from "../../actions/newReminderForm";
 
 export default (state = {
 	open: false,

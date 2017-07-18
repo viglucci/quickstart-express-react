@@ -18,11 +18,12 @@ export function postReminder (data) {
 	return (dispatch) => {
 		ReminderApi.create(data)
 		.then((newReminder) => {
+			console.log(newReminder);
 			console.log(`reminder ${newReminder.id} created`);
 			dispatch(createReminderSuccess(newReminder));
 		})
 		.catch(error => {
-			throw(error);
+			dispatch(createReminderFailure(error));
 		});
 	};
 }
@@ -31,6 +32,13 @@ export function createReminderSuccess (reminder) {
 	return {
 		type: CREATE_REMINDER_SUCCESS,
 		reminder
+	};
+}
+
+export function createReminderFailure (error) {
+	return {
+		type: CREATE_REMINDER_FAILURE,
+		error
 	};
 }
 
