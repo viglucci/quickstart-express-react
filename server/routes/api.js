@@ -3,18 +3,11 @@ const db        = require("../utils/db");
 const delay     = require("../middleware/artificialDelay");
 const Reminder  = require("../database/models/Reminder");
 const reminders = db.get("reminders");
-const Joi       = require("joi");
+const moment    = require("moment");
 
 const router = Router();
 
 //router.use(delay);
-
-const validateNewReminder = (body) => {
-	const schema = Joi.object().keys({
-		title: Joi.string().min(1).max(255).required()
-	});
-	return Joi.validate({ title: body.title }, schema);
-};
 
 router.get("/api/reminders", (req, res, next) => {
 	Reminder
@@ -27,14 +20,20 @@ router.get("/api/reminders", (req, res, next) => {
 
 router.post("/api/reminders", (req, res, next) => {
 	req.assert("title", "Title is a required field.").notEmpty();
+	req.assert("date", "Date is a required field.").notEmpty();
+	req.assert("time", "Time is a required field.").notEmpty();
 	const errors = req.validationErrors();
 	if (errors) {
 		res.status(400).json({
 			errors: errors
 		});
 	} else {
+		let date = req.body.date.split(/:(.+)/)[0];
+		let time = req.body.time.split(/:(.+)/)[1];
+		const when = new Date(`${date}:${time}`);
 		const reminder = new Reminder({
-			title: req.body.title
+			title: req.body.title,
+			when: when
 		});
 		reminder.save()
 		.then(function () {

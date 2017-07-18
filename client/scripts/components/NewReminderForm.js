@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { postReminder } from "../actions/reminders";
+import { submitForm } from "../actions/newReminderForm";
 import {
 	openModal,
 	closeModal,
-	setNameInputValue,
+	setTitleInputValue,
 	setDateInputValue,
 	setTimeInputValue,
 } from "../actions/newReminderForm";
@@ -19,43 +19,49 @@ import Dialog from "material-ui/Dialog";
 import DatePicker from "material-ui/DatePicker";
 import TextField from "material-ui/TextField";
 import TimePicker from "material-ui/TimePicker";
+import ErrorIcon from "material-ui/svg-icons/alert/error";
+import { red500 } from "material-ui/styles/colors";
 
 class NewReminderForm extends Component {
 
-	handleOpen = () => {
+	handleOpen () {
 		this.props.openModal();
 	};
 
-	handleClose = () => {
+	handleClose () {
 		this.props.closeModal();
 	};
 
-	handleSubmit = () => {
+	handleSubmit () {
 		var data = {
 			title: this.props.nameInputValue,
 			date: this.props.dateInputValue,
 			time: this.props.timeInputValue
 		};
-		this.props.postReminder(data);
+		this.props.submitForm(data);
 	};
 
-	handleNameInputChange = (event, value) => {
-		this.props.setNameInputValue(value);
+	handleTitleInputChange (event, value) {
+		this.props.setTitleInputValue(value);
 	};
 
-	handleDateInputChange = (event, value) => {
+	handleDateInputChange (event, value) {
 		this.props.setDateInputValue(value);
 	};
 
-	handleTimeInputChange = (event, value) => {
+	handleTimeInputChange (event, value) {
 		this.props.setTimeInputValue(value);
+	};
+
+	getErrorMsg (field) {
+		return (this.props.errors && this.props.errors[field]) ? this.props.errors[field].msg : undefined;
 	};
 
 	render () {
 
 		let floatingButtonStyle = { position: "absolute", right: 40, bottom: 40 };
-		const cancelButton = <FlatButton label="Cancel" primary={true} onTouchTap={this.handleClose} />
-		const submitButton = <FlatButton label="Submit" primary={true} onTouchTap={this.handleSubmit} />
+		const cancelButton = <FlatButton label="Cancel" primary={true} onTouchTap={this.handleClose.bind(this)} />
+		const submitButton = <FlatButton label="Submit" primary={true} onTouchTap={this.handleSubmit.bind(this)} />
 		const actions = [cancelButton, submitButton];
 
 		return (
@@ -76,15 +82,24 @@ class NewReminderForm extends Component {
 					className="NewReminderForm-dialog">
 					<div className="mui-row">
 						<div className="mui-col-md-12">
-							<TextField hintText="Name" value={this.props.nameInputValue} onChange={this.handleNameInputChange} />
+							<TextField hintText="Title"
+								errorText={this.getErrorMsg("title")}
+								value={this.props.nameInputValue}
+								onChange={this.handleTitleInputChange.bind(this)} />
 						</div>
 					</div>
 					<div className="mui-row">
 						<div className="mui-col-md-6">
-							<DatePicker hintText="Date" value={this.props.dateInputValue} onChange={this.handleDateInputChange} />
+							<DatePicker hintText="Date"
+								errorText={this.getErrorMsg("date")}
+								value={this.props.dateInputValue}
+								onChange={this.handleDateInputChange.bind(this)} />
 						</div>
 						<div className="mui-col-md-6">
-							<TimePicker hintText="Time" value={this.props.timeInputValue} onChange={this.handleTimeInputChange} />
+							<TimePicker hintText="Time"
+								errorText={this.getErrorMsg("time")}
+								value={this.props.timeInputValue}
+								onChange={this.handleTimeInputChange.bind(this)} />
 						</div>
 					</div>
 				</Dialog>
@@ -101,8 +116,8 @@ function mapDispatchToProps (dispatch) {
 	return bindActionCreators({
 		openModal: openModal,
 		closeModal: closeModal,
-		postReminder: postReminder,
-		setNameInputValue: setNameInputValue,
+		submitForm: submitForm,
+		setTitleInputValue: setTitleInputValue,
 		setDateInputValue: setDateInputValue,
 		setTimeInputValue: setTimeInputValue
 	}, dispatch);

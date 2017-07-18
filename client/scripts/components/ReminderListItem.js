@@ -25,9 +25,6 @@ class ReminderListItem extends Component {
 		let onClick = () => {
 			this.setState({ updating: true });
 			this.props.deleteReminder(this.props.reminder);
-			setTimeout(() => {
-				this.setState({ updating: false });
-			}, 3000);
 		};
 		let classes = classnames(
 			"ReminderListItem-deleteButton",
