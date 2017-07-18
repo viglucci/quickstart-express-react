@@ -1,15 +1,17 @@
-import express      from "express";
-import logger       from "morgan";
-import compression  from "compression";
-import cookieParser from "cookie-parser";
-import bodyParser   from "body-parser";
-import mime         from "mime";
-import path         from "path";
+const express      = require("express");
+const validator    = require("express-validator");
+const logger       = require("morgan");
+const compression  = require("compression");
+const cookieParser = require("cookie-parser");
+const bodyParser   = require("body-parser");
+const mime         = require("mime");
+const path         = require("path");
 
-import config from "./app.config";
-import pages  from "./routes/pages";
-import api    from "./routes/api";
-import error  from "./routes/error";
+const config = require("./app.config");
+const pages  = require("./routes/pages");
+const api    = require("./routes/api");
+const error  = require("./routes/error");
+const db     = require("./database");
 
 const app = express();
 
@@ -21,17 +23,18 @@ app.set("views", `${__dirname}/views`);
 app.use(logger("dev"));
 
 app.use(config.static.root, express.static(`${path.join(__dirname, "..", "public")}`, {
-  setHeaders: (res, path) => {
-    if (path.endsWith(".gz")) {
-      res.set("Content-Encoding", "gzip");
-      res.type(mime.lookup(path.slice(0, -3)));
-    }
-  }
+	setHeaders: (res, path) => {
+		if (path.endsWith(".gz")) {
+			res.set("Content-Encoding", "gzip");
+			res.type(mime.lookup(path.slice(0, -3)));
+		}
+	}
 }));
 
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator());
 app.use(cookieParser());
 
 app.use(pages);
@@ -39,5 +42,5 @@ app.use(api);
 app.use(error);
 
 app.listen(config.port, config.host, () => {
-  console.log(`Application listening on ${config.host}:${config.port}...`);
+	console.log(`Application listening on ${config.host}:${config.port}...`);
 });

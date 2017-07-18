@@ -14,7 +14,7 @@ class ReminderList extends Component {
 
 	renderItems () {
 		return this.props.reminders.map(
-			(item, index) => <ReminderListItem key={ item.id } reminder={ item } index={ index } />
+			(item, index) => <ReminderListItem key={ `reminder-${item.id}` } reminder={ item } index={ index } />
 		);
 	}
 

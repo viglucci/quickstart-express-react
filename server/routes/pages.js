@@ -1,4 +1,4 @@
-import { Router } from "express";
+const Router = require("express").Router;
 
 const router = Router();
 
@@ -10,4 +10,4 @@ router.get("/app", (req, res, next) => {
 	res.render("app");
 });
 
-export default router;
+module.exports = router;

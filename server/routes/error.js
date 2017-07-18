@@ -1,5 +1,5 @@
-import { Router }       from "express";
-import ApplicationError from "../utils/ApplicationError";
+const Router           = require("express").Router;
+const ApplicationError = require ("../utils/ApplicationError");
 
 const router = Router();
 
@@ -19,4 +19,4 @@ router.use((error, req, res, next) => {
 	}
 });
 
-export default router;
+module.exports = router;
