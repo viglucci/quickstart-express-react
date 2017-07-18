@@ -23,9 +23,7 @@ const handleLoadReminders = (state, action) => {
 };
 
 const handleAddReminder = (state, action) => {
-	const newState = Object.assign([], state);
-	newState.push(action.reminder);
-	return newState;
+	return state.concat(action.reminder);
 };
 
 const handleRemoveReminder = (state, action) => {
