@@ -7,7 +7,7 @@ import {
 } from "../../actions/newReminderForm";
 
 export default (state = {
-	open: false,
+	isOpen: false,
 	nameInputValue: "",
 	dateInputValue: null,
 	timeInputValue: null

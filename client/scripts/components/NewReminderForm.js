@@ -71,7 +71,7 @@ class NewReminderForm extends Component {
 					title="New Reminder"
 					actions={actions}
 					modal={true}
-					open={this.props.open}
+					open={this.props.isOpen}
 					onRequestClose={this.handleClose}
 					className="NewReminderForm-dialog">
 					<div className="mui-row">
