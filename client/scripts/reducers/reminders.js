@@ -29,10 +29,7 @@ const handleAddReminder = (state, action) => {
 };
 
 const handleRemoveReminder = (state, action) => {
-	const newState = Object.assign([], state);
-	const indexOfDeletedItem = state.findIndex(reminder => {
-		return reminder.id == action.reminder.id;
+	return state.filter((reminder) => {
+		return reminder.id !== action.reminder.id;
 	});
-	newState.splice(indexOfDeletedItem, 1);
-	return newState;
 };
