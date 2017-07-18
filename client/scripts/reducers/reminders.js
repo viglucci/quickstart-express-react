@@ -19,7 +19,7 @@ export default (state = [], action) => {
 };
 
 const handleLoadReminders = (state, action) => {
-	return Object.assign([], state, action.payload.data);
+	return action.payload.data;
 };
 
 const handleAddReminder = (state, action) => {
