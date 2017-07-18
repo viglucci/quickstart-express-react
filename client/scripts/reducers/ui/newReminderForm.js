@@ -12,7 +12,6 @@ export default (state = {
 	dateInputValue: null,
 	timeInputValue: null
 }, action) => {
-
 	switch (action.type) {
 		case OPEN_MODAL:
 			return handleOpenModal(state, action);
@@ -30,31 +29,31 @@ export default (state = {
 };
 
 const handleOpenModal = (state, action) => {
-	const newState = Object.assign({}, state);
-	newState.open = true;
-	return newState;
+	return Object.assign({}, state, {
+		isOpen: true
+	});
 };
 
 const handleCloseModal = (state, action) => {
-	const newState = Object.assign({}, state);
-	newState.open = false;
-	return newState;
+	return Object.assign({}, state, {
+		isOpen: false
+	});
 };
 
 const handleNameInputValueChange = (state, action) => {
-	const newState = Object.assign({}, state);
-	newState.nameInputValue = action.value;
-	return newState;
+	return Object.assign({}, state, {
+		nameInputValue: action.value
+	});
 };
 
 const handleDateInputValueChange = (state, action) => {
-	const newState = Object.assign({}, state);
-	newState.dateInputValue = action.value;
-	return newState;
+	return Object.assign({}, state, {
+		dateInputValue: action.value
+	});
 };
 
 const handleTimeInputValueChange = (state, action) => {
-	const newState = Object.assign({}, state);
-	newState.timeInputValue = action.value;
-	return newState;
+	return Object.assign({}, state, {
+		timeInputValue: action.value
+	});
 };
